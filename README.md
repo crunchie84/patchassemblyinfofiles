@@ -13,3 +13,8 @@ Usage: PatchAssemblyInfoFiles options
    -informalversionfile (-i)             String            file containing the user-friendly version information string (one liner)
    -informalversion (-informalversion)   String            user-friendly version information string
    -companyname (-c)                     String            Company name to append to sourcecode [optional, if empty nothing done]
+   
+   
+License
+======================
+GNU GPL v3, see license.txt

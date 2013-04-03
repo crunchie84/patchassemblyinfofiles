@@ -1,0 +1,8 @@
+*.suo
+bin
+obj
+*.swp
+*.log
+packages/*
+!packages/repositories.config
+*.user

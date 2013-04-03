@@ -10,26 +10,28 @@ namespace PatchAssemblyInfoFiles
 {
   class Arguments
   {
+    [ArgDescription("Path to the folder containing the sourcecode (subfolders)")]
     [ArgRequired(PromptIfMissing = false)]
     [ArgExistingDirectory]
     public string sourceBasePath { get; set; }
 
     [ArgDescription("version file which contains the version 1.2.3.4 string")]
-    [ArgRequired(PromptIfMissing = false)]
     [ArgExistingFile]
     public string versionFile { get; set; }
     
-    //[ArgDescription("version 1.2.3.4 can be supplied directly instead of version file")]
-    //public string version { get; set; }
+    [ArgDescription("version 1.2.3.4 can be supplied directly instead of version file")]
+    [ArgShortcut("version")]
+    public string version { get; set; }
 
     [ArgDescription("file containing the user-friendly version information string (one liner)")]
-    [ArgRequired(PromptIfMissing = false)]
     [ArgExistingFile]
     public string informalVersionFile { get; set; }
 
-    //[ArgDescription("user-friendly version information string")]
-    //public string informalVersion { get; set; }
+    [ArgDescription("user-friendly version information string")]
+    [ArgShortcut("informalversion")]
+    public string informalVersion { get; set; }
 
+    [ArgDescription("Company name to append to sourcecode [optional, if empty nothing done]")]
     public string companyName { get; set; }
   }
 
@@ -45,10 +47,22 @@ namespace PatchAssemblyInfoFiles
       {
         var parsed = Args.Parse<Arguments>(args);
 
-        string versionString = System.IO.File.ReadAllText(parsed.versionFile).Trim().Replace(Environment.NewLine, "");
-        Version version = new Version(versionString);
+        //some parsing for ourselves due to multiple options
+        Version version;
+        if (!string.IsNullOrWhiteSpace(parsed.version))
+          version = new Version(parsed.version.Trim().Replace(Environment.NewLine, ""));
+        else if(!string.IsNullOrWhiteSpace(parsed.versionFile))
+          version = new Version(System.IO.File.ReadAllText(parsed.versionFile).Trim().Replace(Environment.NewLine, ""));
+        else
+          throw new ArgException("No versionFile given and no version string passed");
 
-        string informalVersionString = System.IO.File.ReadAllText(parsed.informalVersionFile).Trim().Replace(Environment.NewLine, "");
+        string informalVersionString;
+        if (!string.IsNullOrWhiteSpace(parsed.informalVersion))
+          informalVersionString = parsed.informalVersion.Trim().Replace(Environment.NewLine, "");
+        else if(!string.IsNullOrWhiteSpace(parsed.informalVersionFile))
+          informalVersionString = System.IO.File.ReadAllText(parsed.informalVersionFile).Trim().Replace(Environment.NewLine, "");
+        else
+          throw new ArgException("No informalVersionFile given and no informalVersion string passed");
 
         Console.Write(Environment.NewLine + Environment.NewLine);
         Console.WriteLine("Passed arguments (evaluated): ");

@@ -128,16 +128,19 @@ namespace PatchAssemblyInfoFiles
 
     private static void updateFileContents(ref string filecontents, int startIndex, string pattern, string value)
     {
+      if (startIndex > filecontents.Length)
+        return;//nothing to see here
+
       int startAt = filecontents.IndexOf(pattern, startIndex);
       if (startAt == -1)
         return;
         
       startAt += pattern.Length;
-      int EndAd = filecontents.IndexOf("\")]", startAt);
-      filecontents = filecontents.Remove(startAt, EndAd - startAt);//remove old crap
+      int endAt = filecontents.IndexOf("\")]", startAt);
+      filecontents = filecontents.Remove(startAt, endAt - startAt);//remove old crap
       filecontents = filecontents.Insert(startAt, value.Trim());//insert new stuff at start index
 
-      updateFileContents(ref filecontents, EndAd, pattern, value);//maybe multiple values available?
+      updateFileContents(ref filecontents, endAt, pattern, value);//maybe multiple values available?
     }
   }
 }

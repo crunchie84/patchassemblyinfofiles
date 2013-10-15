@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchAssemblyInfoFiles", "PatchAssemblyInfoFiles\PatchAssemblyInfoFiles.csproj", "{A44A4FF4-9ECA-452C-ABC2-B93F3ECDAE8A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BA5C8B9B-E772-4213-A750-CE1E3B41FEB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

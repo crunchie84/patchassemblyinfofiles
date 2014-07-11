@@ -20,7 +20,6 @@ namespace PatchAssemblyInfoFiles
     public string versionFile { get; set; }
     
     [ArgDescription("version 1.2.3.4 can be supplied directly instead of version file")]
-    [ArgShortcut("version")]
     public string version { get; set; }
 
     [ArgDescription("file containing the user-friendly version information string (one liner)")]
@@ -28,7 +27,6 @@ namespace PatchAssemblyInfoFiles
     public string informalVersionFile { get; set; }
 
     [ArgDescription("user-friendly version information string")]
-    [ArgShortcut("informalversion")]
     public string informalVersion { get; set; }
 
     [ArgDescription("Company name to append to sourcecode [optional, if empty nothing done]")]
